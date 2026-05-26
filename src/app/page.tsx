@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const LANGUAGES = [
   { code: "en", name: "English 英语" },
@@ -22,6 +23,8 @@ const STYLES = [
 ];
 
 export default function Home() {
+  const { data: session } = useSession();
+  const isPro = (session?.user as any)?.plan === "pro";
   const [productName, setProductName] = useState("");
   const [productDesc, setProductDesc] = useState("");
   const [targetMarket, setTargetMarket] = useState("美国");
@@ -44,7 +47,7 @@ export default function Home() {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productName, productDesc, targetMarket, language, style }),
+        body: JSON.stringify({ productName, productDesc, targetMarket, language, style, userEmail: session?.user?.email }),
       });
       const data = await res.json();
       if (data.error) {
@@ -78,9 +81,26 @@ export default function Home() {
               <p className="text-xs text-slate-400">AI外贸开发信生成器</p>
             </div>
           </div>
-          <a href="#pricing" className="text-sm bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition">
-            升级Pro ✨
-          </a>
+          <div className="flex items-center gap-2">
+            {session ? (
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-slate-300">
+                  {session.user?.name}
+                  {(session.user as any)?.plan === "pro" && (
+                    <span className="ml-1 text-xs bg-blue-600 px-2 py-0.5 rounded">Pro</span>
+                  )}
+                </span>
+                <button onClick={() => signOut()} className="text-xs text-slate-500 hover:text-white">退出</button>
+              </div>
+            ) : (
+              <button onClick={() => signIn("google")} className="text-sm text-slate-300 hover:text-white border border-slate-600 px-3 py-1.5 rounded-lg">
+                登录
+              </button>
+            )}
+            <a href="#pricing" className="text-sm bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition">
+              升级Pro ✨
+            </a>
+          </div>
         </div>
       </header>
 
@@ -179,7 +199,7 @@ export default function Home() {
           </button>
 
           <p className="text-center text-xs text-slate-500">
-            今日剩余：{3 - usageCount}/3 次 ·{" "}
+            今日剩余：{isPro ? "无限" : <>{session ? 5 - usageCount : 3 - usageCount}/{session ? 5 : 3}</>} 次 ·{" "}
             <a href="#pricing" className="text-blue-400 hover:underline">升级无限次</a>
           </p>
         </div>
