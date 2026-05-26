@@ -86,7 +86,7 @@ async function callAI(prompt: string): Promise<string | null> {
   if (process.env.ZHIPU_API_KEY) {
     try {
       const res = await fetch(
-        "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        "https://open.bigmodel.cn/api/coding/paas/v4/chat/completions",
         {
           method: "POST",
           headers: {
