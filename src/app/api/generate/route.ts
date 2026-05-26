@@ -94,7 +94,7 @@ async function callAI(prompt: string): Promise<string | null> {
             Authorization: `Bearer ${process.env.ZHIPU_API_KEY}`,
           },
           body: JSON.stringify({
-            model: "glm-4-flash",
+            model: process.env.AI_MODEL || "glm-5",
             messages: [{ role: "user", content: prompt }],
             temperature: 0.7,
             max_tokens: 1000,
