@@ -82,7 +82,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            {session ? (
+            {process.env.NEXT_PUBLIC_GOOGLE_ENABLED && session ? (
               <div className="flex items-center gap-3">
                 <span className="text-sm text-slate-300">
                   {session.user?.name}
@@ -92,11 +92,11 @@ export default function Home() {
                 </span>
                 <button onClick={() => signOut()} className="text-xs text-slate-500 hover:text-white">退出</button>
               </div>
-            ) : (
+            ) : process.env.NEXT_PUBLIC_GOOGLE_ENABLED ? (
               <button onClick={() => signIn("google")} className="text-sm text-slate-300 hover:text-white border border-slate-600 px-3 py-1.5 rounded-lg">
                 登录
               </button>
-            )}
+            ) : null}
             <a href="#pricing" className="text-sm bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition">
               升级Pro ✨
             </a>
