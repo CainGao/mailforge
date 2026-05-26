@@ -123,7 +123,10 @@ async function callAI(prompt: string): Promise<string | null> {
       body: JSON.stringify({ model, messages: [{ role: "user", content: prompt }], temperature: 0.7, max_tokens: 1000 }),
     });
     const data = await res.json();
-    return data.choices?.[0]?.message?.content?.trim() || null;
+    // GLM-5 may return content in reasoning_content when reasoning mode is active
+    const content = data.choices?.[0]?.message?.content?.trim();
+    const reasoningContent = data.choices?.[0]?.message?.reasoning_content?.trim();
+    return (content || reasoningContent) || null;
   } catch (e) {
     console.error("AI error:", e);
     return null;
