@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "MailForge - AI Trade Email Generator",
     description:
       "Generate professional cold emails in 10+ languages in 1 minute",
-    url: "https://mail.aisense.top",
+    url: "https://forge.aisense.top",
     siteName: "MailForge",
     type: "website",
   },

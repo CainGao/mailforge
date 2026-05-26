@@ -343,7 +343,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 text-center text-sm text-slate-500">
           <p>
             © 2026 MailForge by{" "}
-            <a href="https://aisense.top" className="text-blue-400 hover:underline">
+            <a href="https://forge.aisense.top" className="text-blue-400 hover:underline">
               AI Sense
             </a>{" "}
             · Powered by AI
