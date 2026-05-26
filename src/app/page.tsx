@@ -273,7 +273,7 @@ export default function Home() {
             </div>
             <h4 className="text-lg font-semibold text-white mb-1">Pro版</h4>
             <p className="text-3xl font-bold text-white mb-4">
-              $9.9<span className="text-sm text-slate-400">/月</span>
+              $0.99<span className="text-sm text-slate-400">/月</span>
             </p>
             <ul className="space-y-2 text-sm text-slate-300 mb-6">
               <li>✅ 无限次生成</li>
@@ -286,7 +286,7 @@ export default function Home() {
               <input type="hidden" name="cmd" value="_xclick-subscriptions" />
               <input type="hidden" name="business" value="gerylove5927@gmail.com" />
               <input type="hidden" name="item_name" value="MailForge Pro - Monthly Subscription" />
-              <input type="hidden" name="a3" value="9.90" />
+              <input type="hidden" name="a3" value="0.99" />
               <input type="hidden" name="p3" value="1" />
               <input type="hidden" name="t3" value="M" />
               <input type="hidden" name="currency_code" value="USD" />
@@ -305,13 +305,13 @@ export default function Home() {
             <input type="hidden" name="cmd" value="_xclick-subscriptions" />
             <input type="hidden" name="business" value="gerylove5927@gmail.com" />
             <input type="hidden" name="item_name" value="MailForge Pro - Yearly Subscription" />
-            <input type="hidden" name="a3" value="49.00" />
+            <input type="hidden" name="a3" value="4.90" />
             <input type="hidden" name="p3" value="1" />
             <input type="hidden" name="t3" value="Y" />
             <input type="hidden" name="currency_code" value="USD" />
             <input type="hidden" name="return" value="https://forge.aisense.top" />
             <button type="submit" className="text-blue-400 hover:text-blue-300 text-sm underline">
-              $49/年（省$69）
+              $4.9/年（省$7）
             </button>
           </form>
         </div>

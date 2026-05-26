@@ -4,6 +4,7 @@ import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 const FREE_LIMIT = 3;
 const LOGGED_IN_FREE_LIMIT = 5;
+const PRO_LIMIT = 1000;
 
 function getSupabase(): SupabaseClient | null {
   const url = process.env.SUPABASE_URL;
@@ -35,15 +36,15 @@ export async function POST(req: NextRequest) {
     const supabase = getSupabase();
     const isPro = await checkProStatus(userEmail, supabase);
 
-    if (!isPro) {
-      const limit = userEmail ? LOGGED_IN_FREE_LIMIT : FREE_LIMIT;
-      const used = await getTodayUsage(userEmail, supabase);
-      if (used >= limit) {
-        return NextResponse.json({
-          error: userEmail ? "今日免费次数已用完，升级Pro版无限使用" : "今日免费次数已用完，请登录后继续使用",
-          limit: true,
-        });
-      }
+    const limit = isPro ? PRO_LIMIT : (userEmail ? LOGGED_IN_FREE_LIMIT : FREE_LIMIT);
+    const used = await getTodayUsage(userEmail, supabase);
+    if (used >= limit) {
+      const msg = isPro
+        ? `今日已使用${used}次，Pro版每日上限${PRO_LIMIT}次`
+        : userEmail
+          ? "今日免费次数已用完，升级Pro版每日1000次"
+          : "今日免费次数已用完，请登录后继续使用";
+      return NextResponse.json({ error: msg, limit: true });
       await incrementUsage(userEmail, supabase);
     }
 
